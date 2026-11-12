@@ -12,7 +12,7 @@ public class NetworkConfig
 {
     private static final FileUtils file_utils = new FileUtils();
     private String target_ip;
-    private String port;
+    private int port;
     private static final Type data_type = new TypeToken<ArrayList<NetworkConfig>>() {}.getType();
 
     public String getTarget_ip() {
@@ -23,11 +23,11 @@ public class NetworkConfig
         this.target_ip = target_ip;
     }
 
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 
-    private void setPort(String port) {
+    private void setPort(int port) {
         this.port = port;
     }
 
@@ -36,11 +36,12 @@ public class NetworkConfig
 
         try
         {
-            FileReader network_config_file_reader = file_utils.readFile(path);
+            FileReader network_config_file_reader = file_utils.createFileReader(path);
             Gson gsonObject = new Gson();
             ArrayList<NetworkConfig> data = gsonObject.fromJson(network_config_file_reader, data_type);
             NetworkConfig network_config = data.getFirst();
             System.out.println("NetworkConfig cargado con target-ip: " + network_config.getTarget_ip() + ", port: " + network_config.getPort());
+            network_config_file_reader.close();
             return network_config;
 
         } catch(Exception e)

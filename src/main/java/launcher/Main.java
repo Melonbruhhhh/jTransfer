@@ -1,5 +1,7 @@
 package launcher;
 
+import java.util.Scanner;
+
 import network.Client;
 import network.Server;
 
@@ -7,22 +9,29 @@ public class Main
 {
     static void main(String[] args)
     {
-        try
-        {
-            Client client = new Client();
-            Server server = new Server();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Eliga el modo que quiere utilizar");
+        System.out.println("1. Cliente");
+        System.out.println("2. Servidor");
 
-            client.setTRANSFER_SOURCE("src/source");
-            server.setTRANSFER_DESTINATION("src/transfers");
+        int choice = scanner.nextInt();
 
-            System.out.println("cliente enviando archivo: " + client.getTRANSFER_SOURCE() + " al directorio: " + server.getTRANSFER_DESTINATION() + " del servidor");
-        } catch(Exception e)
+        switch(choice)
         {
-            throw new RuntimeException(e);
+            case 1:
+                Client client = new Client();
+                break;
+
+            case 2:
+                Server server = new Server();
+                break;
+
+            default:
+                System.out.println("Elección invalida");
         }
     }
 }
-//1. crear un programa que transfiera un archivo especifico por medio de lan (imagen)
+//1. crear un programa que transfiera un archivo especifico por medio de lan (imagen) -- LISTO
 //2. cambiar el uso de consola por jframe o alguna biblioteca similar
 //3. añadir la capacidad de elegir que archivo enviar mediante ruta (es posible que tambien ocurra el error de nombre muy largo)
 //4. añadir la capacidad de cancelar transferencias
@@ -32,3 +41,5 @@ public class Main
 //11-11-26 inicio del proyecto, hasta ahora tengo que ver como usar sockets en java y el como enviar un archivo.
 //1. Se creo la clase networkconfig que carga un archivo json el cual esta en data y existe para ser cargado, obteniendo target ip y puerto para la conexión :O-
 //2. Refactorizacion de paquetes, utils e inicio de comunicacion por sockets. debido a que estoy aprendiendo a usar sockets en java posiblemente tome tiempo.
+//12-11-26
+//1. Ajustes a clases junto a capacidad de enviar archivos por consola y lan. Primer hito completado
