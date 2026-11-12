@@ -2,6 +2,7 @@ package utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 import java.lang.reflect.Type;
 
@@ -9,10 +10,10 @@ import java.io.*;
 
 public class NetworkConfig
 {
-    private final static String NETWORK_FILE_PATH = "src/main/data/network.json";
+    private static final FileUtils file_utils = new FileUtils();
     private String target_ip;
     private String port;
-    private static Type data_type = new TypeToken<ArrayList<NetworkConfig>>() {}.getType();
+    private static final Type data_type = new TypeToken<ArrayList<NetworkConfig>>() {}.getType();
 
     public String getTarget_ip() {
         return target_ip;
@@ -30,36 +31,23 @@ public class NetworkConfig
         this.port = port;
     }
 
-    void main()
+    public static NetworkConfig load(String path)
     {
+
         try
         {
-            FileReader network_config_file_reader = readFile(NETWORK_FILE_PATH);
+            FileReader network_config_file_reader = file_utils.readFile(path);
             Gson gsonObject = new Gson();
             ArrayList<NetworkConfig> data = gsonObject.fromJson(network_config_file_reader, data_type);
-            setTarget_ip(data.get(0).getTarget_ip());
-            setPort(data.get(0).getPort());
-            System.out.println("target ip: " + " " + getTarget_ip());
-            System.out.println("port: " + " " + getPort());
+            NetworkConfig network_config = data.getFirst();
+            System.out.println("NetworkConfig cargado con target-ip: " + network_config.getTarget_ip() + ", port: " + network_config.getPort());
+            return network_config;
 
         } catch(Exception e)
         {
-            throw new RuntimeException(e);
+            System.out.println("Error al leer archivo de configuración: " + path + ", error: " + e);
+            return null;
         }
     }
-
-    private static FileReader readFile(String path)
-    {
-        try {
-
-            File file = new File(path);
-            return new FileReader(file);
-
-        } catch(Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-    }
-
 }
 //:(
