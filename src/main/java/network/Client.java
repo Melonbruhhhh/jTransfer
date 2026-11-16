@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class Client
 {
-    private final static String CLIENT_NETWORK_FILE_PATH = "src/main/data/ClientSettings.json";
+    private final static String CLIENT_NETWORK_FILE_PATH = "src/main/resources/data/ClientSettings.json";
 
     public Client()
     {

@@ -12,7 +12,7 @@ import java.net.Socket ;
 
 public class Server
 {
-    private final static String SERVER_NETWORK_FILE_PATH = "src/main/data/ServerSettings.json";
+    private final static String SERVER_NETWORK_FILE_PATH = "src/main/resources/data/ServerSettings.json";
     private static DataInputStream data_input = null;
     private static DataOutputStream data_output = null;
 
