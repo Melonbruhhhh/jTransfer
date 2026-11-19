@@ -4,19 +4,22 @@ import java.util.Scanner;
 
 import network.Client;
 import network.Server;
+import gui.MainWindow;
 
 public class Main
 {
     static void main(String[] args)
     {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Eliga el modo que quiere utilizar");
-        System.out.println("1. Cliente");
-        System.out.println("2. Servidor");
+        new MainWindow();
 
-        int choice = scanner.nextInt();
+        //Scanner scanner = new Scanner(System.in);
+        //System.out.println("Eliga el modo que quiere utilizar");
+        //System.out.println("1. Cliente");
+        //System.out.println("2. Servidor");
 
-        switch(choice)
+        //int choice = scanner.nextInt();
+
+        /*switch(choice)
         {
             case 1:
                 Client client = new Client();
@@ -28,7 +31,7 @@ public class Main
 
             default:
                 System.out.println("Elección invalida");
-        }
+        }*/
     }
 }
 //1. crear un programa que transfiera un archivo especifico por medio de lan (imagen) -- LISTO

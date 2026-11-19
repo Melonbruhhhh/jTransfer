@@ -13,11 +13,16 @@ public class NetworkConfig
     private static final FileUtils file_utils = new FileUtils();
     private String target_ip;
     private int port;
+    private int buffer_size;
     private static final Type data_type = new TypeToken<ArrayList<NetworkConfig>>() {}.getType();
 
     public String getTarget_ip() {
         return target_ip;
     }
+
+    public int getBuffer(){ return buffer_size;}
+
+    private void setBuffer(int buffer){ this.buffer_size = buffer; }
 
     private void setTarget_ip(String target_ip) {
         this.target_ip = target_ip;
@@ -49,6 +54,11 @@ public class NetworkConfig
             System.out.println("Error al leer archivo de configuración: " + path + ", error: " + e);
             return null;
         }
+    }
+
+    static void main() {
+        NetworkConfig network_config = load("src/main/resources/data/ServerSettings.json");
+        System.out.println("ip: " + network_config.getTarget_ip() + "port: " + network_config.getPort() + "buffer: " + network_config.getBuffer());
     }
 }
 //:(

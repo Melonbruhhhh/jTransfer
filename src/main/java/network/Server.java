@@ -33,7 +33,7 @@ public class Server
             data_output = new DataOutputStream(client_socket.getOutputStream());
 
             //metodo para recibir cosas...
-            receiveFile("received.png");
+            receiveFile("received.png", network_config.getBuffer());
 
             data_input.close();
             data_output.close();
@@ -58,13 +58,14 @@ public class Server
         }
     }
 
-    private static void receiveFile(String file_name) throws Exception
+    private static void receiveFile(String file_name, int network_buffer) throws Exception
     {
         int bytes = 0;
         FileOutputStream file_output = new FileOutputStream(file_name);
 
         long size = data_input.readLong(); //lee el tamaño del archivo
-        byte[] buffer = new byte[4 * 1024];
+        //System.out.println("buffer size" + network_buffer);
+        byte[] buffer = new byte[network_buffer * 1024]; //la cantidad de bytes que se almacenan en el buffer, en este caso es 4*1024 bytes que son ~4kb, cambiar esto conun ajuste al json
 
         while(size > 0 && (bytes = data_input.read(buffer, 0, (int)Math.min(buffer.length, size))) != -1)
         {

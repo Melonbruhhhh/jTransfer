@@ -1,34 +1,33 @@
 package gui;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-
+import javax.swing.*;
 import java.awt.*;
 
-public class MainWindow
-{
-    static void main()
-    {
-        JFrame frame = setFrame();
-        setWindow(frame);
-        frame.pack();
+public class MainWindow extends JFrame {
+    private static JButton client_button;
+    private static JButton server_button;
+    private static JPanel north_panel;
+    private static JPanel center_panel;
+
+
+    public MainWindow() {
+        setFrame(this);
+        setWindow(this);
     }
 
-    private static JFrame setFrame()
-    {
-        JFrame frame = new JFrame();
+    private static void setFrame(JFrame frame) {
         frame.setTitle("JTransfer");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setSize(800, 800);
         frame.setVisible(true);
-        return frame;
     }
 
-    private static void setWindow(JFrame frame)
-    {
-        frame.getContentPane().setBackground(Color.darkGray);
+    private static void setWindow(JFrame frame) {
+        frame.setLayout(new BorderLayout());
+
+        north_panel = new JPanel();
+        north_panel.setBackground(Color.blue);
         JLabel label = new JLabel();
         label.setText("Eliga el modo que va a usar");
         label.setForeground(Color.white);
@@ -36,6 +35,34 @@ public class MainWindow
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setVerticalTextPosition(JLabel.TOP);
         label.setVerticalAlignment(JLabel.CENTER);
-        frame.add(label);
+        north_panel.add(label);
+        frame.add(north_panel, BorderLayout.NORTH);
+
+        center_panel = new JPanel();
+        center_panel.setBackground(Color.red);
+        center_panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        client_button = new JButton();
+        buttonSetup(client_button, "Cliente");
+        client_button.addActionListener(e -> System.out.println("cliente!?!?!?!?!?!?"));
+
+        server_button = new JButton();
+        buttonSetup(server_button, "Servidor");
+        server_button.addActionListener(e -> System.out.println("servidor!?!?!?!?!?!?"));
+
+        center_panel.add(client_button);
+        center_panel.add(server_button);
+
+        frame.add(center_panel);
+    }
+
+    private static void buttonSetup(JButton button, String text)
+    {
+        button.setBounds(100, 100, 250, 100);
+        button.setText(text);
+        button.setVerticalTextPosition(JButton.CENTER);
+        button.setHorizontalAlignment(JButton.CENTER);
+        button.setFocusable(false);
+        button.setBorder(BorderFactory.createRaisedBevelBorder());
     }
 }
