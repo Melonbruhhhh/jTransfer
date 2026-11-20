@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class ClientWindow extends JFrame
+public class ClientWindow
 {
     private JButton back_button;
     private JButton start_button;
@@ -14,11 +14,13 @@ public class ClientWindow extends JFrame
     private FileDialog file_path_chooser;
     private JButton file_path_chooser_button;
     private JLabel label;
+    private JFrame frame = new JFrame();
 
     public ClientWindow()
     {
-        setWindow(this);
-        setFrame(this);
+        setWindow(frame);
+        setFrame(frame);
+        frame.setVisible(true);
     }
 
     private static void setFrame(JFrame frame) {
@@ -81,7 +83,7 @@ public class ClientWindow extends JFrame
 
     private void openFileChooser()
     {
-        file_path_chooser = new FileDialog(this, "Select a file");
+        file_path_chooser = new FileDialog(frame, "Select a file");
         file_path_chooser.setVisible(true);
         String directory = file_path_chooser.getDirectory();
         String filename = file_path_chooser.getFile();
@@ -95,12 +97,12 @@ public class ClientWindow extends JFrame
 
     private void back()
     {
-        int selection = JOptionPane.showConfirmDialog(this, "Go back?", "Confirm", JOptionPane.YES_NO_OPTION);
+        int selection = JOptionPane.showConfirmDialog(frame, "Go back?", "Confirm", JOptionPane.YES_NO_OPTION);
 
         if(selection == JOptionPane.YES_OPTION)
         {
             new MainWindow();
-            this.dispose();
+            frame.dispose();
         }
     }
 
