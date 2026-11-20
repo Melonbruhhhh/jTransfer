@@ -1,4 +1,8 @@
 package gui;
 
-public class ServerWindow {
+import javax.swing.*;
+
+public class ServerWindow extends JFrame
+{
+
 }

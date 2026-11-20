@@ -23,7 +23,8 @@ public class MainWindow extends JFrame {
         frame.setVisible(true);
     }
 
-    private static void setWindow(JFrame frame) {
+    private void setWindow(JFrame frame)
+    {
         frame.setLayout(new BorderLayout());
 
         north_panel = new JPanel();
@@ -44,11 +45,11 @@ public class MainWindow extends JFrame {
 
         client_button = new JButton();
         buttonSetup(client_button, "Cliente");
-        client_button.addActionListener(e -> System.out.println("cliente!?!?!?!?!?!?"));
+        client_button.addActionListener(e -> switchWindow(client_button));
 
         server_button = new JButton();
         buttonSetup(server_button, "Servidor");
-        server_button.addActionListener(e -> System.out.println("servidor!?!?!?!?!?!?"));
+        server_button.addActionListener(e -> switchWindow(server_button));
 
         center_panel.add(client_button);
         center_panel.add(server_button);
@@ -61,8 +62,26 @@ public class MainWindow extends JFrame {
         button.setBounds(100, 100, 250, 100);
         button.setText(text);
         button.setVerticalTextPosition(JButton.CENTER);
+        button.setHorizontalTextPosition(JButton.CENTER);
         button.setHorizontalAlignment(JButton.CENTER);
+        button.setVerticalAlignment(JButton.CENTER);
         button.setFocusable(false);
         button.setBorder(BorderFactory.createRaisedBevelBorder());
+    }
+
+    private void switchWindow(JButton button)
+    {
+        if(button == client_button)
+        {
+            new ClientWindow().setVisible(true);
+            this.dispose();
+        } else if(button == server_button)
+        {
+            new ServerWindow().setVisible(true);
+            this.dispose();
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "Option error, please select a valid option", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

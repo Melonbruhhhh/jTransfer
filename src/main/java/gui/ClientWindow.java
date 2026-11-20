@@ -1,4 +1,101 @@
 package gui;
 
-public class ClientWindow {
+import launcher.Main;
+import network.Client;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class ClientWindow extends JFrame
+{
+    private static JButton back_button;
+    private static JButton start_button;
+    private static JTextField file_path_text_field;
+    private static JFileChooser file_path_chooser;
+    private static JButton file_path_chooser_button;
+    private static JLabel label;
+
+    public ClientWindow()
+    {
+        setWindow(this);
+        setFrame(this);
+    }
+
+    private static void setFrame(JFrame frame) {
+        frame.setTitle("JTransfer");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setSize(800, 800);
+        frame.setVisible(true);
+    }
+
+    private void setWindow(JFrame frame)
+    {
+        frame.setLayout(new BorderLayout());
+
+        JPanel center_panel = new JPanel();
+        center_panel.setLayout(new GridBagLayout());
+        GridBagConstraints center_panel_gridbag_constrains = new GridBagConstraints();
+
+        label = new JLabel("Elija el archivo que quiere enviar");
+        center_panel_gridbag_constrains.gridx = 0;
+        center_panel_gridbag_constrains.gridy = 0;
+        center_panel_gridbag_constrains.gridwidth = 2;
+        center_panel_gridbag_constrains.weightx = 1.0;
+        center_panel.add(label, center_panel_gridbag_constrains);
+
+        file_path_text_field = new JTextField(20);
+        center_panel_gridbag_constrains.gridx = 0;
+        center_panel_gridbag_constrains.gridy = 1;
+        center_panel_gridbag_constrains.gridwidth = 1;
+        center_panel_gridbag_constrains.weightx = 1.0;
+        center_panel.add(file_path_text_field);
+
+        file_path_chooser_button = new JButton("...");
+        center_panel_gridbag_constrains.gridx = 1;
+        center_panel_gridbag_constrains.weightx = 0;
+        center_panel.add(file_path_chooser_button);
+        file_path_chooser_button.addActionListener(e -> openFileChooser());
+        file_path_chooser = new JFileChooser();
+
+        back_button = new JButton("Back");
+        center_panel_gridbag_constrains.gridx = 0;
+        center_panel_gridbag_constrains.gridy = 2;
+        center_panel_gridbag_constrains.gridwidth = 2;
+        center_panel_gridbag_constrains.weightx = 1.0;
+        center_panel.add(back_button);
+        back_button.addActionListener(e -> back());
+
+        start_button = new JButton("Start");
+        center_panel_gridbag_constrains.gridx = 1;
+        center_panel_gridbag_constrains.weightx = 1.0;
+        center_panel.add(start_button);
+        start_button.addActionListener(e -> start());
+
+        frame.add(center_panel);
+    }
+
+    private void openFileChooser()
+    {
+        if(file_path_chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            file_path_text_field.setText(file_path_chooser.getSelectedFile().getAbsolutePath());
+        }
+    }
+
+    private void back()
+    {
+        int selection = JOptionPane.showConfirmDialog(this, "Go back?", "Confirm", JOptionPane.YES_NO_OPTION);
+
+        if(selection == JOptionPane.YES_OPTION)
+        {
+            new MainWindow();
+            this.dispose();
+        }
+    }
+
+    private void start()
+    {
+        new Client();
+    }
 }
