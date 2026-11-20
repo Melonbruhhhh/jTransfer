@@ -1,19 +1,19 @@
 package gui;
 
-import launcher.Main;
 import network.Client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class ClientWindow extends JFrame
 {
-    private static JButton back_button;
-    private static JButton start_button;
-    private static JTextField file_path_text_field;
-    private static JFileChooser file_path_chooser;
-    private static JButton file_path_chooser_button;
-    private static JLabel label;
+    private JButton back_button;
+    private JButton start_button;
+    private JTextField file_path_text_field;
+    private FileDialog file_path_chooser;
+    private JButton file_path_chooser_button;
+    private JLabel label;
 
     public ClientWindow()
     {
@@ -56,7 +56,6 @@ public class ClientWindow extends JFrame
         center_panel_gridbag_constrains.weightx = 0;
         center_panel.add(file_path_chooser_button);
         file_path_chooser_button.addActionListener(e -> openFileChooser());
-        file_path_chooser = new JFileChooser();
 
         back_button = new JButton("Back");
         center_panel_gridbag_constrains.gridx = 0;
@@ -77,9 +76,15 @@ public class ClientWindow extends JFrame
 
     private void openFileChooser()
     {
-        if(file_path_chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        file_path_chooser = new FileDialog(this, "Select a file");
+        file_path_chooser.setVisible(true);
+        String directory = file_path_chooser.getDirectory();
+        String filename = file_path_chooser.getFile();
+
+        if(directory != null && filename != null)
         {
-            file_path_text_field.setText(file_path_chooser.getSelectedFile().getAbsolutePath());
+            File selected_file = new File(directory, filename);
+            file_path_text_field.setText(selected_file.getAbsolutePath());
         }
     }
 
