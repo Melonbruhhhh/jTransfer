@@ -16,7 +16,7 @@ public class Server
     private static DataInputStream data_input = null;
     private static DataOutputStream data_output = null;
 
-    public Server()
+    public Server(String path)
     {
         try
         {
@@ -38,6 +38,8 @@ public class Server
             data_input.close();
             data_output.close();
             client_socket.close();
+
+            System.out.println("Servidor Cerrado...");
 
         } catch (Exception e)
         {

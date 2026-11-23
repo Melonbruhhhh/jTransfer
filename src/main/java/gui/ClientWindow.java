@@ -70,7 +70,7 @@ public class ClientWindow
 
         start_button = new JButton("Start");
         button_panel.add(start_button);
-        start_button.addActionListener(e -> start());
+        start_button.addActionListener(e -> start(file_path_text_field.getText()));
 
         center_panel_gridbag_constrains.gridx = 0;
         center_panel_gridbag_constrains.gridy = 2;
@@ -106,8 +106,8 @@ public class ClientWindow
         }
     }
 
-    private void start()
+    private void start(String path)
     {
-        new Client();
+        new Client(path);
     }
 }

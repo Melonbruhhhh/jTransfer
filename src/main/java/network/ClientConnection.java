@@ -26,9 +26,7 @@ public class ClientConnection
         }
     }
 
-    public void send() {
-        System.out.println("Escriba la ruta del archivo que quiere enviar: \n");
-        String path = scanner.nextLine();
+    public void send(String path) {
         try
         {
             sendFile(path);

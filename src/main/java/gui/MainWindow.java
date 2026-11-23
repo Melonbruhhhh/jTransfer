@@ -77,7 +77,7 @@ public class MainWindow extends JFrame {
             this.dispose();
         } else if(button == server_button)
         {
-            new ServerWindow().setVisible(true);
+            new ServerWindow();
             this.dispose();
         } else
         {

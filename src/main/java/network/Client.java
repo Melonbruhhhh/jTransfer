@@ -9,14 +9,14 @@ public class Client
 {
     private final static String CLIENT_NETWORK_FILE_PATH = "src/main/resources/data/ClientSettings.json";
 
-    public Client()
+    public Client(String path)
     {
         NetworkConfig network_config = NetworkConfig.load(CLIENT_NETWORK_FILE_PATH);
         System.out.println("Cliente preparado con target_ip: " + network_config.getTarget_ip() + ", port: " + network_config.getPort());
 
         Socket client_socket = clientSocketSetup(network_config.getTarget_ip(), network_config.getPort());
         ClientConnection client_connection = new ClientConnection(client_socket);
-        client_connection.send();
+        client_connection.send(path);
     }
 
     private Socket clientSocketSetup(String target_ip, int port)
